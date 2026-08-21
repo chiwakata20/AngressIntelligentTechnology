@@ -13,6 +13,7 @@ const seo: Record<string, [string, string]> = {
   "terms-of-service": ["Terms of Service", "Read the terms for using the ANGRESS Intelligent Technology company profile website."],
   "terms-and-conditions": ["Terms and Conditions", "Read the terms and conditions for using the ANGRESS Intelligent Technology company profile website."],
 };
+// type PageKey = (typeof pages)[number];
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -23,6 +24,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  if (!pages.includes(slug as PageKey)) notFound();
+  if (!pages.includes(slug as (typeof pages)[number])) {
+  notFound();
+}
   return <CompanyPage page={slug as PageKey} />;
 }
